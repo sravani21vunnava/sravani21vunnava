@@ -1,0 +1,236 @@
+
+% #######################################
+% ########### FILL THESE IN #############
+% #######################################
+\def\mytitle{KARNAUGH MAP}
+\def\mykeywords{}
+\def\myauthor{SRAVANI VUNNAVA}
+\def\contact{sravani21vunnava@gmail.com}
+\def\mymodule{ Future Wireless Communication(FWC22012)}
+% #######################################
+% #### YOU DON'T NEED TO TOUCH BELOW ####
+% #######################################
+\documentclass[10pt, a4paper]{article}
+\usepackage[a4paper,outer=1.5cm,inner=1.5cm,top=1.75cm,bottom=1.5cm]{geometry}
+\twocolumn
+\usepackage{circuitikz}
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+%colour our links, remove weird boxes
+\usepackage[colorlinks,linkcolor={black},citecolor={blue!80!black},urlcolor={blue!80!black}]{hyperref}
+%Stop indentation on new paragraphs
+\usepackage[parfill]{parskip}
+%% Arial-like font
+\usepackage{lmodern}
+\renewcommand*\familydefault{\sfdefault}
+%Napier logo top right
+\usepackage{watermark}
+%Lorem Ipusm dolor please don't leave any in you final report ;)
+\usepackage{karnaugh-map} 
+\usepackage{tabularx}
+\usepackage{lipsum}
+\usepackage{xcolor}
+\usepackage{listings}
+%give us the Capital H that we all know and love
+\usepackage{float}
+%tone down the line spacing after section titles
+\usepackage{titlesec}
+%Cool maths printing
+\usepackage{amsmath}
+%PseudoCode
+\usepackage{algorithm2e}
+
+\titlespacing{\subsection}{0pt}{\parskip}{-3pt}
+\titlespacing{\subsubsection}{0pt}{\parskip}{-\parskip}
+\titlespacing{\paragraph}{0pt}{\parskip}{\parskip}
+\newcommand{\figuremacro}[5]{
+    \begin{figure}[#1]
+        \centering
+        \includegraphics[width=#5\columnwidth]{#2}
+        \caption[#3]{\textbf{#3}#4}
+        \label{fig:#2}
+    \end{figure}
+}
+
+
+ \lstset{
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+
+\thiswatermark{\centering \put(1,-110){\includegraphics[scale=0.07]{IIT_logo.png}} }
+\title{\mytitle}
+\author{\myauthor\hspace{1em}\\\contact\\IITH\hspace{0.5em}-\hspace{0.5em}\mymodule}
+\date{}
+\hypersetup{pdfauthor=\myauthor,pdftitle=\mytitle,pdfkeywords=\mykeywords}
+\sloppy
+% #######################################
+% ########### START FROM HERE ###########
+% #######################################
+\begin{document}
+ \maketitle
+ \begin{abstract}
+     %Replace the lipsum command with actual text 
+  This document shows how to find the boolean function of the output for the logic which is in given truth table by using KMap. 
+ \end{abstract}
+    
+ 
+
+ 
+    
+    
+    
+ 
+ \section{Components}
+ 
+     \begin{tabularx}{0.4\textwidth} {  
+  | >{\centering\arraybackslash}X  
+  | >{\centering\arraybackslash}X  
+  | >{\centering\arraybackslash}X |}
+  \hline
+\textbf{Component} &  \textbf{Value} & \textbf{Quantity}\\
+\hline
+Arduino & UNO & 1 \\  
+\hline
+Resistor& 220ohm & 1 \\ 
+\hline
+Bread board & - & 1 \\
+\hline
+Jumber wires & M-M & 20\\
+\hline
+Led & - & 1\\
+\hline
+\end{tabularx}
+
+
+    
+
+
+
+
+ \section{Logic}
+ The circuit takes 3-bit number from (0-7) as input X,Y,Z and produces the G as output according to the logic given in table 1.
+\begin{table}[htbp]
+ \begin{center}
+    \begin{tabular}{|l|c|c|c|c|c|c|c|c|} \hline 
+  \textbf{X}& \textbf{Y} & \textbf{Z} &\textbf{G(X,Y,Z)} \\
+ \hline
+ 0&0&0&0\\ \hline
+0&0&1&0 \\ \hline
+0&1&0&1\\ \hline
+0&1&1&0  \\ \hline
+1&0&0&1\\ \hline
+1&0&1&1\\ \hline
+1&1&0&0\\ \hline
+1&1&0&1\\ \hline
+\end{tabular}   
+\end{center}
+\caption{\label{table:dummytable} }
+\end{table}
+
+ 
+   
+  
+
+    
+\section{Kmap}
+
+Using the boolean logic output G can be expressed in terms of the inputs X,Y,Z with the help of the following Kmap.
+\\
+\\
+\begin{karnaugh-map}[4][2][1][$YZ$][$X$]
+    \minterms{2,4,5,7} 
+    \maxterms{0,1,3,6} 
+    \implicant{0}{1} 
+    \implicant{1}{3} 
+    \implicant{6}{6} 
+    \end{karnaugh-map}
+\\
+The boolean expression for the output G is obtained in the form of POS after minimizing the Kmap maxterm implicants.
+\\
+\begin{center}
+    G(X,Y,Z) = (X+Y).(X+Z').(X'+Y'+Z)
+\end{center}
+
+ 
+     
+    \section{Hardware Connection}
+
+
+    
+    \begin{table}[htbp]
+ \begin{center}
+    \begin{tabular}{|l|c|c|c|c|c|} \hline 
+  \textbf{Arduino}& \textbf{2} & \textbf{3}&\textbf{4}&\textbf{5} &\textbf{GND} \\
+   \hline
+ breadboard& 0/1 & 0/1 & 0/1 & - & -\\ \hline
+led & - & - & - & +ve & -ve \\ \hline
+\end{tabular}   
+\end{center}
+\caption{\label{table:dummytable} }
+\end{table}
+Give the connections as per Table 2. For taking the inputs connect 5V of arduino to +ve line of bread board to consider it as logic 'HIGH'.connect GND pin of arduino to -ve line of bread board to consider it as logic 'LOW'.
+\\
+\\
+For example if the inputs X,Y,Z are connected 1,0,1 respectively the output should be 1 i.e., the LED connected to the 5th pin should glow.
+\\
+\\
+In the another case if we connect the inputs X,Y,Z to 1,1,0 respectively the output should be 0 i.e., the LED connected to 5th pin should turn off
+
+The circuit implementation of the above function is given in figure 1.
+
+
+
+
+  \section{Software}
+  1.Connect the arduino to the USB port of computer
+  \\
+  \\2.Download the follwing code
+  \\
+  \begin{lstlisting}
+  https://github.com/sravani21vunnava/sravani21vunnava/blob/main/kmap.cpp
+  \end{lstlisting}
+  
+  3.Upload the code into the arduino board.
+  \\
+  \\4.The output '1' is represented as the state:'LED ON' and '0' is represented as the state 'LED OFF' 
+ 
+      \begin{circuitikz} \draw 
+(0,4) node[or port]  (or1) {}
+(0,1.6) node[or port]  (or2) {}
+(0,-1) node[or port, number inputs=3] (or3) {}
+(4,1) node[and port, number inputs=3] (and) {}
+(or1.out) -- (and.in 1)
+(or2.out) -- (and.in 2)
+(or3.out) -- (and.in 3);
+\node[left] at (or1.in 1) {\(X\)};
+\node[left] at (or1.in 2) {\(Y\)};
+\node[left] at (or2.in 2)[ocirc] {};
+\node[left] at (or1.in 2) [ocirc] {};
+\node[left] at (or2.in 1) {\(X\)};
+\node[left] at (or2.in 2) {\(Z\)};
+\node[left] at (or3.in 1) [ocirc] {};
+\node[left] at (or3.in 2) [ocirc] {};
+\node[left] at (or3.in 1) {\(X\)};
+\node[left] at (or3.in 2) {\(Y\)};
+\node[left] at (or3.in 3) {\(Z\)};
+\node[right] at (or1.out) {\((X+Y)\)};
+\node[right] at (or3.out) {\((X'+Y'+Z)\)};
+\node[right] at (or2.out) {\((X+Z')\)};
+\node[right] at (and.out) {\(F=(X+Y)(X+Z')(X'+Y'+Z)\)};
+\end{circuitikz}
+\begin{center}
+    Figure 1
+\end{center}
+
+
+
+
+    
+
+    
+ 
+
+
+\end{document}
