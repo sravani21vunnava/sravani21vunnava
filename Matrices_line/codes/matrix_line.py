@@ -67,7 +67,7 @@ plt.plot(x_CQ[0,:],x_CQ[1,:],label='$CQ$')
 l1 = np.linalg.norm(A-P)
 l2 = np.linalg.norm(Q-C)
 if (round(l1,4) == round(l2,4)) and (round(an1) == round(an2)) and (abs(round(m_1@m_2)) == abs(round(n_1@n_2))):
-   print(" (i) AP = CQ" , end = "")
+   print(" (i) AP = CQ")
    print(" (ii) Triangle APB is congurrent to Triangle DQC")
 #Labeling the coordinates
 tri_coords = np.vstack((A,B,C,D,P,Q)).T
@@ -84,7 +84,7 @@ plt.ylabel('$y_axis$')
 plt.legend(loc='best')
 plt.grid() # minor
 plt.axis('equal')
-plt.title('rectangle')
+plt.title('Parallelogram')
 #if using termux
 #plt.savefig('/sdcard/Linearalgebra/par.pdf')
 #subprocess.run(shlex.split("termux-open '/storage/emulated/0/github/cbse-papers/2020/math/10/solutions/figs/matrix-10-2.pdf'")) 
